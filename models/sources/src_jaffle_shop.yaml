@@ -2,8 +2,11 @@ version: 2
 
 sources:
   - name: jaffle_shop
+    description: Fictitious data about customers of and orders from a shop that sells jaffles. Taken from the `dbt-tutorial` BigQuery project.
     database: dbt-tutorial
     schema: jaffle_shop
     tables:
       - name: customers
+        description: One line per customer.
       - name: orders
+        description: One line per order.
