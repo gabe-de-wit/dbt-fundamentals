@@ -1,15 +1,14 @@
-Welcome to your new dbt project!
+## dbt Fundamentals
 
-### Using the starter project
+My solution to exercises in the course hosted at https://courses.getdbt.com/courses/fundamentals.
 
-Try running the following commands:
-- dbt run
-- dbt test
+A dbt project comprising:
 
+* Project config in `dbt_project.yml`.
+* Sources (two of dbt Labs' own BigQuery datasets), a staging layer, and a mart output. These are defined under `models/`.
+* Documentation, and tests specified in YAML configs, also under `models/`.
+* Some singular tests in SQL scripts within `tests/`.
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [dbt community](http://community.getbdt.com/) to learn from other analytics engineers
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+This repo is managed by dbt Cloud, using BigQuery (under a personal GCP project) as the data store.
+
+The subject matter is data from a shop that sells jaffles, which explains e.g. the naming of the `models/staging/jaffle_shop/` folder. 'Jaffle' is another name — used in Australia :australia: — for a toastie / toasted sandwich :sandwich:.
