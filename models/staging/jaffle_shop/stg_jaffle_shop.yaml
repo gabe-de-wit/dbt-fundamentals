@@ -2,28 +2,40 @@ version: 2
 
 models:
   - name: stg_customers
-    columns: 
+    description: One line per customer.
+    columns:
       - name: customer_id
+        description: Primary key.
         tests:
           - unique
           - not_null
+      - name: first_name
+        description: First name (assumes starts with a capital letter and is one word with no punctuation).
+      - name: last_name
+        description: Initial of last name (assume one capital letter) follwed by a dot.
   - name: stg_orders
+    description: One line per order.
     columns:
       - name: order_id
+        description: Primary key.
         tests:
           - unique
           - not_null
       - name: customer_id
+        description: Foreign key to `stg_customers`.
         tests:
           - relationships:
               to: ref('stg_customers')
               field: customer_id
+      - name: order_date
+        description: Date that the order was placed (?? or last changed status?).
       - name: status
+        description: "{{ doc('order_status') }}"
         tests:
           - accepted_values:
               values:
-                - completed
-                - shipped
-                - returned
-                - return_pending
                 - placed
+                - shipped
+                - completed
+                - return_pending
+                - returned
