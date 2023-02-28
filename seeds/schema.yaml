@@ -1,0 +1,20 @@
+version: 2
+
+seeds:
+  - name: employees
+    description: A table of employees at the Jaffle Shop, referenced to their customer_id.
+    - columns:
+      - name: employee_id
+        description: Primary key.
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: Employee email address.
+      - name: customer_id
+        description: Foreign key to `stg_customers`.
+        tests:
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+          
