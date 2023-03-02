@@ -1,0 +1,84 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: One line per customer.
+    columns:
+      - name: customer_id
+        description: Primary key.
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('stg_customer')
+              field: customer_id
+      - name: first_name
+        description: Customer's first name.
+      - name: last_name
+        description: Initial of customer's last name.
+      - name: first_order_date
+        description: Date of customer's first order at the Jaffle Shop.
+      - name: most_recent_order_date
+        description: Date of customer's most recent order at the Jaffle Shop.
+      - name: number_of_orders
+        description: The number of orders that customer has made at the Jaffle Shop.
+      - name: lifetime_value
+        description: Total paid amount across all of customer's orders at the Jaffle Shop.
+  - name: fct_failed_orders
+    description: One line per failed order.
+    columns:
+      - name: order_id
+        description: Primary key.
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
+      - name: customer_id
+        description: ID of customer that made the attempted order (see `dim_customers`).
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+      - name: amount
+        description: Amount of failed order.
+  - name: fct_orders
+    description: One line per order.
+    columns:
+      - name: order_id
+        description: Primary key.
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
+      - name: customer_id
+        description: ID of customer that made the order (see `dim_customers`).
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+      - name: amount
+        description: Order amount.
+  - name: int_orders__pivoted
+    description: One line per order. Payment methods separated into different columns.
+    columns:
+      - name: order_id
+        description: Primary key.
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
+      - name: customer_id
+        description: ID of customer that made the order (see `dim_customers`).
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
