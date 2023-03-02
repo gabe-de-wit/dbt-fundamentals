@@ -3,7 +3,7 @@ version: 2
 seeds:
   - name: employees
     description: A table of employees at the Jaffle Shop, referenced to their customer_id.
-    - columns:
+    columns:
       - name: employee_id
         description: Primary key.
         tests:
@@ -17,4 +17,3 @@ seeds:
           - relationships:
               to: ref('stg_customers')
               field: customer_id
-          
