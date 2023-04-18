@@ -5,4 +5,5 @@ select
     status,
     'USD' as currency,
     amount / 100 as amount
+
 from {{ source('stripe', 'payment') }}

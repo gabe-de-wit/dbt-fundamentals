@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: int_payments_failed
+    description: One line per payment. Failed payments only.
+    columns:
+      - name: payment_id
+        description: Primary key.
+      - name: order_id
+        description: Foreign key to `stg_jaffle_shop__orders`.
+      - name: payment_method
+        description: How Stripe tried to handle the payment.
+      - name: currency
+        description: The currency that Stripe tried to take payment in.
+      - name: amount
+        description: Attempted payment amount.
+  - name: int_payments_successful
+    description: One line per payment. Successful payments only.
+    columns:
+      - name: payment_id
+        description: Primary key.
+      - name: order_id
+        description: Foreign key to `stg_jaffle_shop__orders`.
+      - name: payment_method
+        description: How Stripe handled the payment.
+      - name: currency
+        description: The currency that Stripe took payment in.
+      - name: amount
+        description: Payment amount.
+  - name: int_orders_pivoted
+    description: One line per order. An order might have payments across different payment methods. Amounts by each payment method are separated into different columns.
+    columns:
+      - name: order_id
+        description: Primary key.
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('stg_jaffle_shop__orders')
+              field: order_id
+      - name: customer_id
+        description: ID of customer that made the order.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_jaffle_shop__customers')
+              field: customer_id

@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: stg_stripe__payments
+    description: One line per payment.
+    columns: 
+      - name: payment_id
+        description: Primary key.
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: Foreign key to `stg_jaffle_shop__orders`.
+        tests:
+          - relationships:
+              to: ref('stg_jaffle_shop__orders')
+              field: order_id
+      - name: payment_method
+        description: How Stripe handled the payment.
+        tests:
+          - accepted_values:
+              values: ['credit_card', 'bank_transfer', 'coupon', 'gift_card']
+      - name: status
+        description: Whether the Stripe payment went through or not.
+        tests:
+          - accepted_values:
+              values: ['success', 'fail']
+      - name: currency
+        description: The currency that Stripe took payment in.
+        tests:
+          - accepted_values:
+              values: ['USD']
+      - name: amount
+        description: Payment amount.

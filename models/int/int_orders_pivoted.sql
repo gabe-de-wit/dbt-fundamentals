@@ -8,6 +8,7 @@ select
     {%- if not loop.last -%} , {%- endif %}
     {%- endfor %}
 
-from {{ ref('stg_orders') }} inner join {{ ref('stg_payments_successful') }} using (order_id)
+from {{ ref('stg_jaffle_shop__orders') }}
+inner join {{ ref('int_payments_successful') }} using (order_id)
 
 group by order_id
